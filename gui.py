@@ -1,3 +1,5 @@
+import py7zr
+import pandas as pd
 import numpy as np
 import joblib
 from tensorflow.keras.models import load_model
@@ -25,7 +27,11 @@ feature_columns = joblib.load(FEATURE_COLUMNS_PATH)
 encoder_model = load_model(ENCODER_PATH)
 
 # Load precomputed features
-all_features = pd.read_csv(FUSED_FEATURES_PATH)
+with py7zr.SevenZipFile(FUSED_FEATURES_PATH, mode='r') as z:
+    z.extractall(path="data_temp")
+
+all_features = pd.read_csv("data_temp/merged_phenotype_embeddings.csv")
+
 
 st.success("Models & Features Loaded ✔️")
 
@@ -94,3 +100,4 @@ if uploaded_file:
         st.info("Cluster prediction for each kernel in the image:")
         for idx, cluster_id in enumerate(cluster_ids):
             st.write(f"Kernel {idx}: Cluster {cluster_id}" if cluster_id != -1 else f"Kernel {idx}: Outlier (-1)")
+

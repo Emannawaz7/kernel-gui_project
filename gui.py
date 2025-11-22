@@ -8,11 +8,11 @@ from tensorflow.keras.models import load_model
 st.info("Loading Models & Features... Please wait...")
 
 # Paths (update if needed)
-DBSCAN_PATH = r"D:\Eman\Uni\Semester 8\GUI dbscan\models\dbscan_model.pkl"
-SCALER_PATH = r"D:\Eman\Uni\Semester 8\GUI dbscan\models\feature_scaler (1).pkl"
-FEATURE_COLUMNS_PATH = r"D:\Eman\Uni\Semester 8\GUI dbscan\feature_columns.pkl"
-FUSED_FEATURES_PATH = r"D:\Eman\Uni\Semester 8\GUI dbscan\merged_phenotype_embeddings (1).csv"
-ENCODER_PATH = r"D:\Eman\Uni\Semester 8\GUI dbscan\models\fused_encoder (1).h5"
+DBSCAN_PATH = "dbscan_model.pkl"
+SCALER_PATH = "feature_scaler (1).pkl"
+FEATURE_COLUMNS_PATH = "feature_columns.pkl"
+FUSED_FEATURES_PATH = "merged_phenotype_embeddings (1).csv"
+ENCODER_PATH = "fused_encoder (1).h5"
 
 # Load DBSCAN model
 dbscan_model = joblib.load(DBSCAN_PATH)
@@ -100,4 +100,5 @@ if uploaded_file:
         st.info("Cluster prediction for each kernel in the image:")
         for idx, cluster_id in enumerate(cluster_ids):
             st.write(f"Kernel {idx}: Cluster {cluster_id}" if cluster_id != -1 else f"Kernel {idx}: Outlier (-1)")
+
 
